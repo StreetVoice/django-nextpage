@@ -67,7 +67,7 @@ class AutoPaginateNode(template.Node):
 
         limit = paginate_by + 1
 
-        offset = (page - 1) * limit if page == 1 else (page - 1) * limit - (page - 1)
+        offset = 0 if page == 1 else (page - 1) * limit - (page - 1)
         items = context[self.queryset_var.var]
         items = items[offset:limit + offset]
 
