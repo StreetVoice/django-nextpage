@@ -1,16 +1,14 @@
 from setuptools import setup, find_packages
 
-version = '0.1'
+version = '0.2'
 
-LONG_DESCRIPTION = """
-Usage just like django-pagination but only next and previous page is provided.
-"""
+long_description = open('README.rst').read()
 
 setup(
     name='django-nextpage',
     version=version,
     description="django-nextpage",
-    long_description=LONG_DESCRIPTION,
+    long_description=long_description,
     classifiers=[
         "Programming Language :: Python",
         "Topic :: Software Development :: Libraries :: Python Modules",
