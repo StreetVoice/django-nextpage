@@ -1,0 +1,8 @@
+{% if prev_page %}
+    <a href="?page={{ prev_page }}{{ getvars }}">Prev</a>
+{% endif %}
+|
+{% if next_page %}
+    <a href="?page={{ next_page }}{{ getvars }}">Next</a>
+{% endif %}
+
