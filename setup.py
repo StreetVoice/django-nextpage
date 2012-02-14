@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '1.0.7'
+version = '0.1'
 
 LONG_DESCRIPTION = """
 Usage just like django-pagination but only next and previous page is provided.
