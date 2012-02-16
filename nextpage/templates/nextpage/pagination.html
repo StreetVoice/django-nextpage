@@ -1,7 +1,15 @@
-{% if prev_page %}
-    <a href="?page={{ prev_page }}{{ getvars }}">Prev</a> |
-{% endif %}
-{% if next_page %}
-    <a href="?page={{ next_page }}{{ getvars }}">Next</a>
-{% endif %}
+{% load i18n %}
 
+<div id="nextpage">
+    {% if prev_page %}
+        <div class="prev">
+            <a href="?page={{ prev_page }}{{ getvars }}">{% trans "Previous page" %}</a> |
+        </div>
+    {% endif %}
+
+    {% if next_page %}
+        <div class="next">
+            <a href="?page={{ next_page }}{{ getvars }}">{% trans "Next page" %}</a>
+        </div>
+    {% endif %}
+</div>
