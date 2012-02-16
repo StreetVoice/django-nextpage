@@ -2,14 +2,10 @@
 
 <div id="nextpage">
     {% if prev_page %}
-        <div class="prev">
-            <a href="?page={{ prev_page }}{{ getvars }}">{% trans "Previous page" %}</a> |
-        </div>
+        <a class="prev" href="?page={{ prev_page }}{{ getvars }}">{% trans "Previous page" %}</a> |
     {% endif %}
 
     {% if next_page %}
-        <div class="next">
-            <a href="?page={{ next_page }}{{ getvars }}">{% trans "Next page" %}</a>
-        </div>
+        <a class="next" href="?page={{ next_page }}{{ getvars }}">{% trans "Next page" %}</a>
     {% endif %}
 </div>
