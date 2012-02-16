@@ -1,12 +1,11 @@
 from setuptools import setup, find_packages
-
-version = '0.3'
+from nextpage import __version__
 
 long_description = open('README.rst').read()
 
 setup(
     name='django-nextpage',
-    version=version,
+    version=__version__,
     description="django-nextpage",
     long_description=long_description,
     classifiers=[
