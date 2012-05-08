@@ -87,8 +87,9 @@ class AutoPaginateNode(template.Node):
         return u''
 
 
-def paginate(context, hashtag=''):
+def paginate(context, template=None):
     to_return = {
+        'template': 'nextpage/%s' % (template if template else 'pagination.html'),
         'next_page': context['next_page'],
         'prev_page': context['prev_page'],
         'page': context['page'],
@@ -105,6 +106,6 @@ def paginate(context, hashtag=''):
     return to_return
     
 
-register.inclusion_tag('nextpage/pagination.html', takes_context=True)(
+register.inclusion_tag('nextpage/parent_pagination.html', takes_context=True)(
     paginate)
 register.tag('autopaginate', do_autopaginate)
