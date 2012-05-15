@@ -1,5 +1,7 @@
 {% load i18n %}
-
+{% if template %}
+    {% include template %}
+{% else %}
 <div id="nextpage">
     {% if prev_page %}
         <a class="prev" href="?page={{ prev_page }}{{ getvars }}">{% trans "Previous page" %}</a> |
@@ -9,3 +11,4 @@
         <a class="next" href="?page={{ next_page }}{{ getvars }}">{% trans "Next page" %}</a>
     {% endif %}
 </div>
+{% endif %}
