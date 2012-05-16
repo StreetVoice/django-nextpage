@@ -89,9 +89,8 @@ class AutoPaginateNode(template.Node):
         return u''
 
 @register.simple_tag(takes_context=True)
-def paginate(context, template=None):
+def paginate(context, template='nextpage/pagination.html'):
     to_return = {
-        'template': 'nextpage/%s' % (template) if template else None,
         'next_page': context['next_page'],
         'prev_page': context['prev_page'],
         'page': context['page'],
@@ -104,7 +103,8 @@ def paginate(context, template=None):
             to_return['getvars'] = "&%s" % getvars.urlencode()
         else:
             to_return['getvars'] = ''
-        template = get_template('nextpage/%s' % (template if template else 'pagination.html'))
+
+        template = get_template(template)
 
     return template.render(Context(to_return))
     
