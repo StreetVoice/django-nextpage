@@ -1,6 +1,8 @@
 from django import template
 from django.http import Http404
 from django.conf import settings
+from django.template.loader import get_template
+from django.template import Context
 
 register = template.Library()
 
@@ -86,15 +88,13 @@ class AutoPaginateNode(template.Node):
         context['prev_page'] = page - 1 if page > 1 else None
         return u''
 
-
-def paginate(context, template=None):
+@register.simple_tag(takes_context=True)
+def paginate(context, template='nextpage/pagination.html'):
     to_return = {
-        'template': 'nextpage/%s' % (template if template else 'pagination.html'),
         'next_page': context['next_page'],
         'prev_page': context['prev_page'],
         'page': context['page'],
     }
-
     if 'request' in context:
         getvars = context['request'].GET.copy()
         if 'page' in getvars:
@@ -103,9 +103,9 @@ def paginate(context, template=None):
             to_return['getvars'] = "&%s" % getvars.urlencode()
         else:
             to_return['getvars'] = ''
-    return to_return
-    
 
-register.inclusion_tag('nextpage/parent_pagination.html', takes_context=True)(
-    paginate)
+        template = get_template(template)
+
+    return template.render(Context(to_return))
+    
 register.tag('autopaginate', do_autopaginate)
