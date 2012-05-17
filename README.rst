@@ -52,3 +52,7 @@ Just like ``django-pagination``, in fact it designed as a drop-in replacement. j
     {% autopaginate object_list 20 %}
 
     {% paginate %}
+
+or you can assign with different pagination template in `templates/nextpage` folder by
+
+    {% paginate "your_own_pagination.html" %}
