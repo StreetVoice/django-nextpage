@@ -91,10 +91,11 @@ class AutoPaginateNode(template.Node):
 @register.simple_tag(takes_context=True)
 def paginate(context, template='pagination.html'):
     to_return = {
-        'next_page': context['next_page'],
-        'prev_page': context['prev_page'],
-        'page': context['page'],
+        'next_page': context.get('next_page', None),
+        'prev_page': context.get('prev_page', None),
+        'page': context.get('page', 0),
     }
+
     if 'request' in context:
         getvars = context['request'].GET.copy()
         if 'page' in getvars:
