@@ -56,3 +56,9 @@ Just like ``django-pagination``, in fact it designed as a drop-in replacement. j
 or you can assign with different pagination template in `templates/nextpage` folder by
 
     {% paginate "your_own_pagination.html" %}
+
+
+.. image:: https://d2weczhvl823v0.cloudfront.net/StreetVoice/django-nextpage/trend.png
+   :alt: Bitdeli badge
+   :target: https://bitdeli.com/free
+
