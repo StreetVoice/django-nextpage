@@ -1,3 +1,5 @@
+import django
+
 from django import template
 from django.http import Http404
 from django.conf import settings
@@ -110,6 +112,11 @@ def paginate(context, template='pagination.html'):
 
         template = get_template("nextpage/%s" % template)
 
-    return template.render(Context(to_return))
+        context = Context(to_return)
+
+        if django.get_version() >= '1.9':
+            context = context.flatten()
+
+    return template.render(context)
     
 register.tag('autopaginate', do_autopaginate)
