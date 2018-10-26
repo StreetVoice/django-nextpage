@@ -15,7 +15,7 @@ setup(
         "Environment :: Web Environment",
     ],
     install_requires = [
-        "django >= 1.5, < 1.9",
+        "django >= 1.5, < 1.11",
     ],
     keywords='pagination,django',
     author='tzangms',
