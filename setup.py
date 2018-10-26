@@ -14,9 +14,6 @@ setup(
         "Framework :: Django",
         "Environment :: Web Environment",
     ],
-    install_requires = [
-        "django >= 1.5, < 1.11",
-    ],
     keywords='pagination,django',
     author='tzangms',
     author_email='tzangms@gmail.com',
