@@ -73,12 +73,9 @@ class AutoPaginateNode(template.Node):
 
         offset = 0 if page == 1 else (page - 1) * limit - (page - 1)
         items = context[self.queryset_var.var]
+        items = items[offset:limit + offset]
 
-        if items:
-            items = items[offset:limit + offset]
-            items_count = len(list(items))
-        else:
-            items_count = 0
+        items_count = len(list(items))
 
         #
         if items_count == 0 and page > 1:
@@ -86,7 +83,7 @@ class AutoPaginateNode(template.Node):
                 raise Http404('Invalid page requested.  If DEBUG were set to ' +
                     'False, an HTTP 404 page would have been shown instead.')
 
-        context[self.queryset_var.var] = items[:limit - 1] if items else items
+        context[self.queryset_var.var] = items[:limit - 1]
 
         context['page'] = page
         context['next_page'] = page + 1 if items_count == limit else None
