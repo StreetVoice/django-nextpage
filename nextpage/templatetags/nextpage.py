@@ -1,3 +1,4 @@
+import itertools
 import django
 
 from django import template
@@ -73,9 +74,10 @@ class AutoPaginateNode(template.Node):
 
         offset = 0 if page == 1 else (page - 1) * limit - (page - 1)
         items = context[self.queryset_var.var]
-        items = items[offset:limit + offset]
+        items = itertools.islice(items, offset, limit + offset)
+        items = list(items)
 
-        items_count = len(list(items))
+        items_count = len(items)
 
         #
         if items_count == 0 and page > 1:
