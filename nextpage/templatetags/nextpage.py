@@ -1,4 +1,3 @@
-import itertools
 import django
 
 from django import template
@@ -41,7 +40,7 @@ def do_autopaginate(parser, token):
         try:
             orphans = int(split[3])
         except ValueError:
-            raise template.TemplateSyntaxError(u'Got %s, but expected integer.'
+            raise template.TemplateSyntaxError('Got %s, but expected integer.'
                 % split[3])
         return AutoPaginateNode(split[1], paginate_by=split[2], orphans=orphans,
             context_var=context_var)
@@ -74,11 +73,12 @@ class AutoPaginateNode(template.Node):
 
         offset = 0 if page == 1 else (page - 1) * limit - (page - 1)
         items = context[self.queryset_var.var]
-        items = itertools.islice(items, offset, limit + offset)
-        items = list(items)
+        try:
+            items = items[offset:limit + offset]
+        except TypeError:
+            items = list(items)[offset:limit + offset]
 
         items_count = len(items)
-
         #
         if items_count == 0 and page > 1:
             if INVALID_PAGE_RAISES_404:
@@ -90,7 +90,7 @@ class AutoPaginateNode(template.Node):
         context['page'] = page
         context['next_page'] = page + 1 if items_count == limit else None
         context['prev_page'] = page - 1 if page > 1 else None
-        return u''
+        return ''
 
 @register.simple_tag(takes_context=True)
 def paginate(context, template='pagination.html'):
