@@ -20,6 +20,8 @@ If you want to pagiante by 20, django-nextpage will query for 21 items, if query
 Installation
 ============
 
+Requires Django 2.0 or later.
+
 Add ``nextpage`` to ``INSTALLED_APPS``, like:
 
     .. code:: python

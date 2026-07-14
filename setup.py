@@ -12,7 +12,11 @@ setup(
         "Programming Language :: Python",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Framework :: Django",
+        "Framework :: Django :: 2.0",
         "Environment :: Web Environment",
+    ],
+    install_requires=[
+        "django>=2.0",
     ],
     keywords='pagination,django',
     author='tzangms',
