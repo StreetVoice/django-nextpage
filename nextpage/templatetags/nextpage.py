@@ -90,30 +90,44 @@ class AutoPaginateNode(template.Node):
         context['prev_page'] = page - 1 if page > 1 else None
         return u''
 
+def _make_page_url(path, base_getvars, page_num):
+    if page_num is None:
+        return None
+    params = base_getvars.copy()
+    if page_num > 1:
+        params['page'] = page_num
+    query = params.urlencode()
+    return f"{path}?{query}" if query else path
+
 @register.simple_tag(takes_context=True)
 def paginate(context, template='pagination.html'):
-    to_return = {
-        'next_page': context.get('next_page', None),
-        'prev_page': context.get('prev_page', None),
-        'page': context.get('page', 0),
-    }
+    page = context.get('page', 1)
+    next_page = context.get('next_page', None)
+    prev_page = context.get('prev_page', None)
 
     if 'request' in context:
-        getvars = context['request'].GET.copy()
-        if 'page' in getvars:
-            del getvars['page']
-        if len(getvars.keys()) > 0:
-            to_return['getvars'] = "&%s" % getvars.urlencode()
-        else:
-            to_return['getvars'] = ''
+        path = context['request'].path
+        base_getvars = context['request'].GET.copy()
+        base_getvars.pop('page', None)
+    else:
+        from django.http import QueryDict
+        path = ''
+        base_getvars = QueryDict()
 
-        template = get_template("nextpage/%s" % template)
+    to_return = {
+        'page': page,
+        'next_page': next_page,
+        'prev_page': prev_page,
+        'current_url': _make_page_url(path, base_getvars, page),
+        'next_url': _make_page_url(path, base_getvars, next_page),
+        'prev_url': _make_page_url(path, base_getvars, prev_page),
+    }
 
-        context = Context(to_return)
+    template = get_template("nextpage/%s" % template)
 
-        if django.VERSION >= (1, 9):
-            context = context.flatten()
-
-    return template.render(context)
+    ctx = Context(to_return)
+    if django.VERSION >= (1, 9):
+        return template.render(ctx.flatten())
+    return template.render(ctx)  # type: ignore[arg-type]
     
 register.tag('autopaginate', do_autopaginate)
