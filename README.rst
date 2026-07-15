@@ -24,7 +24,7 @@ Requires Django 2.0 or later.
 
 Add ``nextpage`` to ``INSTALLED_APPS``, like:
 
-    .. code:: python
+.. code:: python
 
     INSTALLED_APPS = (
        # ...
@@ -34,7 +34,7 @@ Add ``nextpage`` to ``INSTALLED_APPS``, like:
 
 and your ``TEMPLATES`` setting's ``context_processors`` should include ``django.template.context_processors.request``, like:
 
-    .. code:: python
+.. code:: python
 
     TEMPLATES = [
         {
