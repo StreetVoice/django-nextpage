@@ -68,6 +68,10 @@ or you can assign with different pagination template in `templates/nextpage` fol
 
     {% paginate "your_own_pagination.html" %}
 
+or you can specify the path used to build the previous/next page urls, instead of using ``request.path``
+
+    {% paginate path="/some/other/path/" %}
+
 
 .. image:: https://d2weczhvl823v0.cloudfront.net/StreetVoice/django-nextpage/trend.png
    :alt: Bitdeli badge
