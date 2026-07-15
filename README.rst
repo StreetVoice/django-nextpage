@@ -20,6 +20,8 @@ If you want to pagiante by 20, django-nextpage will query for 21 items, if query
 Installation
 ============
 
+Requires Django 2.0 or later.
+
 Add ``nextpage`` to ``INSTALLED_APPS``, like:
 
     .. code:: python
@@ -30,15 +32,24 @@ Add ``nextpage`` to ``INSTALLED_APPS``, like:
     )
 
 
-and ``TEMPLATE_CONTEXT_PROCESSORS`` should have ``django.core.context_processors.request``, like:
+and your ``TEMPLATES`` setting's ``context_processors`` should include ``django.template.context_processors.request``, like:
 
     .. code:: python
 
-    ("django.core.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "django.core.context_processors.request")
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'OPTIONS': {
+                'context_processors': [
+                    'django.contrib.auth.context_processors.auth',
+                    'django.template.context_processors.debug',
+                    'django.template.context_processors.i18n',
+                    'django.template.context_processors.media',
+                    'django.template.context_processors.request',
+                ],
+            },
+        },
+    ]
 
 
 
