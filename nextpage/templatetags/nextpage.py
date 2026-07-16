@@ -97,28 +97,31 @@ def _make_page_url(path, base_getvars, page_num):
     return f"{path}?{query}" if query else path
 
 @register.simple_tag(takes_context=True)
-def paginate(context, template='pagination.html'):
+def paginate(context, template='pagination.html', path=None, **kwargs):
     page = context.get('page', 1)
     next_page = context.get('next_page', None)
     prev_page = context.get('prev_page', None)
 
     if 'request' in context:
-        path = context['request'].path
+        if path is None:
+            path = context['request'].path
         base_getvars = context['request'].GET.copy()
         base_getvars.pop('page', None)
     else:
         from django.http import QueryDict
-        path = ''
+        if path is None:
+            path = ''
         base_getvars = QueryDict()
 
-    to_return = {
+    to_return = dict(kwargs)
+    to_return.update({
         'page': page,
         'next_page': next_page,
         'prev_page': prev_page,
         'current_url': _make_page_url(path, base_getvars, page),
         'next_url': _make_page_url(path, base_getvars, next_page),
         'prev_url': _make_page_url(path, base_getvars, prev_page),
-    }
+    })
 
     template = get_template("nextpage/%s" % template)
 
