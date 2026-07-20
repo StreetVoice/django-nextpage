@@ -118,6 +118,7 @@ def paginate(context, template='pagination.html', path=None, **kwargs):
         'page': page,
         'next_page': next_page,
         'prev_page': prev_page,
+        'getvars': "&%s" % base_getvars.urlencode() if base_getvars else '',
         'current_url': _make_page_url(path, base_getvars, page),
         'next_url': _make_page_url(path, base_getvars, next_page),
         'prev_url': _make_page_url(path, base_getvars, prev_page),
